@@ -15,7 +15,5 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   padding: 1rem;
 }
