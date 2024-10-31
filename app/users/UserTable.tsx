@@ -12,9 +12,12 @@ interface Props {
 }
 
 async function UserTable({ sortOrder }: Props) {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users', {
-    next: { revalidate: 10 },
-  })
+  const res = await new Promise<Promise<Response>>((resolve) =>
+    setTimeout(
+      () => resolve(fetch('https://jsonplaceholder.typicode.com/users')),
+      1000
+    )
+  ).then((res) => res)
 
   const users: User[] = await res.json()
 
