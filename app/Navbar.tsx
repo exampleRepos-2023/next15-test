@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <div className='flex bg-gray-950'>
+    <div className='flex bg-gray-950 p-4'>
       <Link className='mr-5' href='/'>
         Next.js
       </Link>
