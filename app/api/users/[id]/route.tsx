@@ -17,3 +17,21 @@ export function GET(request: NextRequest, { params }: Props) {
     email: 'P6JpO@example.com',
   })
 }
+
+export async function UPDATE(request: NextRequest, { params }: Props) {
+  const body = await request.json()
+
+  if (!body.name) {
+    return NextResponse.json({ error: 'Name is required' }, { status: 404 })
+  }
+
+  if (params.id > 10) {
+    return NextResponse.json({ error: 'User not found' }, { status: 404 })
+  }
+
+  return NextResponse.json({
+    id: params.id,
+    name: 'John Doe',
+    email: 'P6JpO@example.com',
+  })
+}
