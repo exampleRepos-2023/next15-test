@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ErrorPage = ({ error, reset }: Props) => {
-  console.error(error)
+  console.log(error)
 
   return (
     <>
