@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import AuthProvider from './auth/Provider'
 import './globals.css'
 import Navbar from './Navbar'
 
@@ -13,10 +14,12 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang='en' data-theme='dark'>
-      <body>
-        <Navbar />
-        <main className='p-5'>{children}</main>
-      </body>
+      <AuthProvider>
+        <body>
+          <Navbar />
+          <main className='p-5'>{children}</main>
+        </body>
+      </AuthProvider>
     </html>
   )
 }
