@@ -19,21 +19,27 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        if (credentials?.email || credentials?.password) return null
+        if (!credentials?.email || !credentials?.password) return null
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials?.email,
-          },
-        })
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          })
 
-        if (!user) return null
+          if (!user) return null
 
-        const passwordsMatch = credentials?.password
-          ? await bcrypt.compare(credentials.password, user.hashedPassword!)
-          : null
+          const passwordsMatch = await bcrypt.compare(
+            credentials.password,
+            user.hashedPassword || ''
+          )
 
-        return passwordsMatch ? user : null
+          return passwordsMatch ? user : null
+        } catch (error) {
+          console.error('Error during authorization:', error)
+          return null
+        }
       },
     }),
     Google({
